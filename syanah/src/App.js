@@ -1,26 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      client: false,
+      company: false,
+      
+    }
+
+  }
+toggleClient(){
+  this.setState({
+    client: !this.state.client
+  })
+
+  console.log('clicked client' , this.state.client)
+}
+
+toggleCompany(){
+  this.setState({
+    company: !this.state.company
+  })
+  console.log('clicked company', this.state.company)
+}
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <main className="container">
+        <button className="btn btn-sm m-2 btn-danger" onClick = {this.toggleClient.bind(this)} > client</button>
+        <button className="btn btn-sm m-2 btn-primary" onClick = {this.toggleCompany.bind(this)}> company</button>
+      </main>
     );
   }
 }
