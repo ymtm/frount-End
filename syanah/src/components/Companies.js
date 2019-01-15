@@ -1,16 +1,15 @@
-import React, {Component} from "react"
 
-class Companies extends Component {
-    constructor(){
-        super();
-        this.setState={
+import React from 'react';
 
-        }
-    }
-    render(){
+const Companies = (props) => {
+
         return(
-            <div></div>
+            <div onClick={() => props.showCompany(props.comp.comp_id)}>
+                <img src={props.comp.comp_logo}alt=""/>
+                <h1>{props.comp.comp_name}</h1>    
+            </div>
         )
-    }
+    
 }
+
 export default Companies;

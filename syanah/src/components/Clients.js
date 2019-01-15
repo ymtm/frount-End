@@ -1,19 +1,15 @@
-import React, { Component } from "react"
+import React, {Component} from 'react';
 
-class Clients extends Component {
-
-    constructor(){
-        super();
-        this.setState = {
-
-        }
-    }
+class Clients extends Component{
 
     render(){
         return(
-            <div></div>
+            <div className="modal">
+            
+            </div>
         )
     }
+
 }
 
 
