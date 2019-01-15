@@ -26,6 +26,26 @@ toggleCompany(){
   })
   console.log('clicked company', this.state.company)
 }
+
+updateStatus(cont_id){
+  const url = `http://localhost:3000/companies/contracts/${cont_id.id}`
+    fetch(url, {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(cont_id)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      
+    })
+    .catch(error => {
+      console.log(error);
+    })
+
+}
   render() {
     return (
       <main className="container">
