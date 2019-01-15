@@ -1,25 +1,51 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Companies from './components/Companies';
+import Show from './components/Show';
 
 class App extends Component {
+  constructor(){
+    super()
+    this.state = {
+      companies:[],
+      client: false,
+      company: false,
+      activeComponent:'',
+    }
+  }
+  
+  componentDidMount(){
+    console.log('fetching data');
+    fetch('http://localhost:3000/companies')
+      .then( response => response.json())
+      .then( data => {
+        console.log(data);
+        this.setState({
+          companies: data
+        })
+      })
+      .catch( error => {
+        console.log(error)
+      })
+  }
+
+  renderCompanies(allCompanies){
+   return allCompanies.map((company)=>{
+     return(
+       <Companies key={company.id} comp={company} showCompany={this.showCompany.bind(this)}/>
+     )
+   })
+  }
+  showCompany(id) {
+   console.log('clicked', id);
+
+     
+}
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <h1>HEY</h1>
+       {this.renderCompanies(this.state.companies)}
       </div>
     );
   }
