@@ -10,7 +10,6 @@ class App extends Component {
     this.state ={
       compoanie:[],
       clients: [],
-
     }
   }
 
@@ -48,9 +47,11 @@ body: JSON.stringify(client)
     const updatedClinet = this.state.clients.concat([data])
     this.setState({
       clients: updatedClinet,
-
+  
     })
-
+    .catch((error) => {
+      console.log(error);
+    })
   })
 }
  
