@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-import companies from './components/Companies';
-import clients from './components/Clients';
+import Companies from './components/Companies';
+import Clients from './components/Clients';
 
 class App extends Component {
   constructor(){
     super();
     this.state ={
       compoanie:[],
-
+      clients: [],
 
     }
   }
@@ -25,8 +25,35 @@ class App extends Component {
     })
     .catch (error => {
       console.log(error)
-    })
+    }) 
   }
+
+creatNewCompanies(client){
+  const url = 'http://localhost:3000/clients'
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      "content-type": "application/json"
+
+    },
+body: JSON.stringify(client)
+  
+  })
+  .then(response => response.json())
+  .then(data =>{
+    console.log('DATA')
+    console.log('datat');
+    const updatedClinet = this.state.client([data])
+    this.setState({
+      client: updatedClinet,
+      
+      
+
+    })
+
+  })
+}
+ 
   render() {
     return (
       <div className="App">

@@ -1,16 +1,16 @@
-import React from "react"
+import React, {Component} from "react"
 
+class Companies extends Component {
+    constructor(){
+        super();
+        this.setState={
 
-
-
-
-
-
-
-
-
-
-
-
-
-export default Companie;
+        }
+    }
+    render(){
+        return(
+            <div></div>
+        )
+    }
+}
+export default Companies;
