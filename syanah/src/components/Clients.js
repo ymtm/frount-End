@@ -10,7 +10,7 @@ class Clients extends Component{
 
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = 
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event){
@@ -32,7 +32,7 @@ class Clients extends Component{
                 <label>Building Type:</label> <input type="text" value={this.state.type} name="type" onChange={this.handleChange}/><br/>
                 <label>Contract Period:</label>
                     <select name="period" value={this.state.period} onChange={this.handleChange}>
-                        <option value="three months">3 months</option>
+                        <option selected value="three months">3 months</option>
                         <option value="six months">6 months</option>
                         <option value="one year">1 year</option>
                     </select><br/>

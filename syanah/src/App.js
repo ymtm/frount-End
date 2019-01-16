@@ -61,7 +61,7 @@ renderCompanies(allCompanies){
       return <ShowClient thatCompany={comp[0]}/>
     }
 
-creatNewCompanies(client){
+creatNewContracts(client){
   const url = 'http://localhost:3000/clients'
   fetch(url, {
     method: 'POST',
