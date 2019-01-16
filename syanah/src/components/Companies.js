@@ -13,7 +13,7 @@ const Companies = (props) => {
                 </div>
 
               
-                    <Clients createContracts={this.createContracts.bind(this)}/>
+                    <Clients createContracts={props.createContracts}/>
              
             </div>
         )

@@ -36,7 +36,7 @@ componentDidMount(){
 renderCompanies(allCompanies){
    return allCompanies.map((company)=>{
      return(
-       <Companies key={company.id} comp={company} showCompany={this.showCompany.bind(this)}/>
+       <Companies key={company.id} comp={company} showCompany={this.showCompany.bind(this)} createContracts={this.createContracts.bind(this)}/>
      )
    })
   }
@@ -62,6 +62,7 @@ renderCompanies(allCompanies){
     }
 
 createContracts(client){
+  console.log('$$$$$$',client)
   const url = 'http://localhost:3000/client'
   fetch(url, {
     method: 'POST',

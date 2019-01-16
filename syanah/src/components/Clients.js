@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
 class Clients extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             name: '',
             type: '',
