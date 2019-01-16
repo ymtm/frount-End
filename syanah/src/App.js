@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Companies from './components/Companies';
-
 import ShowClient from './components/ShowClient';
 
 
@@ -114,6 +113,15 @@ toggleIsClient(){
 
   console.log('clicked client' , this.state.client)
 }
+
+handleSubmit(client) {
+  if(this.state.isClient) {
+    this.creatNewContracts(client)
+  } else {
+    this.updateStatus(client)
+  }
+}
+
 
 
 
