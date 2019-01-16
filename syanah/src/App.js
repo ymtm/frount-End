@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Companies from './components/Companies';
-
 import ShowClient from './components/ShowClient';
 
 
@@ -124,7 +123,7 @@ toggleIsClient(){
         <button className="btn btn-sm m-2 btn-primary" onClick = {this.toggleIsClient.bind(this)}> company</button>
         <h1>HEY</h1>
        <h1>Companies</h1>
-       {this.state.listOfcomps ? this.renderCompanies(this.state.companies) : false}
+       {this.state.listOfcomps  && this.state.isClient ? this.renderCompanies(this.state.companies) : false}
        { this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}
       </main>
 
