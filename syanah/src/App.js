@@ -10,12 +10,12 @@ class App extends Component {
     this.state = {
       companies:[],
       isClient: false,
+      isCompany:false,
       activeComponent:'',
       thatCompany: [],
-      listOfcomps : true,
+      listOfcomps : false,
     }
   }
-
 
 componentDidMount(){
   console.log('fetching data');
@@ -86,22 +86,25 @@ body: JSON.stringify(client)
   })
 }
 
- deleteTheContract(contract){
-  const API_URL= '';
+ deleteTheContract(comp_id , client_id){
+  const API_URL= 'http://localhost:3000/';
   const url = API_URL + `/companies/${comp_id}/client/${client_id}`;
   fetch(url, { method: 'DELETE' })
     .then(response => response.json())
     .then(data => {
-       this.state.contract.filter( el => el.id !== contract.id );
+      console.log(data)
+      //  this.status.filter( el => el.id !== contract.id );
     })
-      try {
-        throw new Error('error in delete contract');
-    }
-    catch(e) {
-        console.log(e);
+    .catch(error => console.log(error))
+    //   try {
+    //     throw new Error('error in delete contract');
+    // }
+    // catch(e) {
+    //     console.log(e);
     
     }
-} 
+ 
+
 updateStatus(cont_id){
   const url = `http://localhost:3000/companies/contracts/${cont_id.id}`
     fetch(url, {
@@ -122,11 +125,11 @@ updateStatus(cont_id){
 
 }
 toggleIsClient(){
-  this.setState({
-    isClient: !this.state.isClient
-  })
-
+  this.setState({listOfcomps:true , isCompany: false })
   console.log('clicked client' , this.state.client)
+}
+toggleCompany(){
+  this.setState({listOfcomps:true , isClient:false})
 }
 
 
@@ -135,11 +138,11 @@ toggleIsClient(){
     return (
       <main className="container">
         <button className="btn btn-sm m-2 btn-danger" onClick = {this.toggleIsClient.bind(this)} > client</button>
-        <button className="btn btn-sm m-2 btn-primary" onClick = {this.toggleIsClient.bind(this)}> company</button>
+        <button className="btn btn-sm m-2 btn-primary" onClick = {this.toggleCompany.bind(this)}> company</button>
         <h1>HEY</h1>
        <h1>Companies</h1>
-       {this.state.listOfcomps ? this.renderCompanies(this.state.companies) : false}
-       { this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}
+       {this.state.listOfcomps ? this.renderCompanies(this.state.companies) : ''}
+       {this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}
       </main>
 
 
