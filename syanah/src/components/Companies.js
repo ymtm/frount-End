@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 const Companies = (props) => {
@@ -8,7 +9,6 @@ const Companies = (props) => {
                 <h1>{props.comp.comp_name}</h1>    
             </div>
         )
-    
 }
 
 export default Companies;
