@@ -13,6 +13,7 @@ class App extends Component {
       activeComponent:'',
       thatCompany: [],
       listOfcomps : true,
+      client: []
     }
   }
 
@@ -35,7 +36,7 @@ componentDidMount(){
 renderCompanies(allCompanies){
    return allCompanies.map((company)=>{
      return(
-       <Companies key={company.id} comp={company} showCompany={this.showCompany.bind(this)}/>
+       <Companies key={company.id} comp={company} showCompany={this.showCompany.bind(this)} createContracts={this.createContracts.bind(this)}/>
      )
    })
   }
@@ -60,30 +61,31 @@ renderCompanies(allCompanies){
       return <ShowClient thatCompany={comp[0]}/>
     }
 
-creatNewContracts(client){
-  const url = 'http://localhost:3000/clients'
+createContracts(client){
+  const url = 'http://localhost:3000/client'
   fetch(url, {
     method: 'POST',
     headers: {
       "content-type": "application/json"
 
     },
-body: JSON.stringify(client)
+    body: JSON.stringify(client)
   
   })
   .then(response => response.json())
   .then(data =>{
     console.log('DATA')
-    console.log('datat');
-    const updatedClinet = this.state.clients.concat([data])
+    console.log('data');
+    const updatedClinet = this.state.client.concat([data])
     this.setState({
-      clients: updatedClinet,
+      client: updatedClinet,
   
     })
+    console.log(this.state.client)
+  })
     .catch((error) => {
       console.log(error);
     })
-  })
 }
  
 
@@ -114,13 +116,6 @@ toggleIsClient(){
   console.log('clicked client' , this.state.client)
 }
 
-handleSubmit(client) {
-  if(this.state.isClient) {
-    this.creatNewContracts(client)
-  } else {
-    this.updateStatus(client)
-  }
-}
 
 
 

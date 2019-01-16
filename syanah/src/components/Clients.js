@@ -26,6 +26,7 @@ class Clients extends Component{
     handleSubmit(event){
         event.preventDefault();
         console.log('U R doin somethin!!!')
+        this.props.createContracts(this.state)
     }
     
     render(){
