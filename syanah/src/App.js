@@ -20,7 +20,7 @@ class App extends Component {
 componentDidMount(){
   console.log('fetching data');
   fetch('http://localhost:3000/companies')
-    .then( response => response.json())
+    .then(response => response.json())
     .then( data => {
       console.log(data);
       this.setState({
@@ -122,12 +122,13 @@ updateStatus(cont_id){
     })
 
 }
+
 toggleIsClient(){
   this.setState({
     isClient: !this.state.isClient
   })
 
-  console.log('clicked client' , this.state.client)
+  console.log('clicked client' , this.state.isClient)
 }
 
 
@@ -140,7 +141,7 @@ toggleIsClient(){
         <h1>HEY</h1>
        <h1>Companies</h1>
        {this.state.listOfcomps ? this.renderCompanies(this.state.companies) : false}
-       { this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}
+       {this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}
       </main>
 
 
