@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Companies from './components/Companies';
+import Clients from './components/Clients';
 import Show from './components/Show';
 
 class App extends Component {
@@ -10,11 +11,13 @@ class App extends Component {
       companies:[],
       client: false,
       company: false,
-      activeComponent:''
-      
-    }
+      activeComponent:'',
+      thatCompany: [],
 
+    
+    }
   }
+
 
 componentDidMount(){
   console.log('fetching data');
@@ -26,10 +29,37 @@ componentDidMount(){
         companies: data
       })
     })
-    .catch( error => {
+    .catch (error => {
       console.log(error)
+    }) 
+  }
+
+creatNewCompanies(client){
+  const url = 'http://localhost:3000/clients'
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      "content-type": "application/json"
+
+    },
+body: JSON.stringify(client)
+  
+  })
+  .then(response => response.json())
+  .then(data =>{
+    console.log('DATA')
+    console.log('datat');
+    const updatedClinet = this.state.clients.concat([data])
+    this.setState({
+      clients: updatedClinet,
+  
     })
+    .catch((error) => {
+      console.log(error);
+    })
+  })
 }
+ 
 
 renderCompanies(allCompanies){
  return allCompanies.map((company)=>{
