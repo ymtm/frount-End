@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 class Clients extends Component{
+
     constructor(){
         super()
         this.state = {
@@ -18,7 +19,6 @@ class Clients extends Component{
                 <label>Contract Period:</label><input type="text" value={this.state.name} name="period"/><br/>
                 <button>submit</button>     
                 </form>
-            
             </div>
         )
     }
