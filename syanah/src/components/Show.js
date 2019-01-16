@@ -8,6 +8,16 @@ class Show extends Component {
 
         }
     }
+
+    render(){
+
+        return(
+            <div>
+                <h1>{this.props.thatCompany !== undefined ? this.props.thatCompany.comp_name : ''}</h1>
+                <p>{this.props.thatCompany !== undefined ? this.props.thatCompany.comp_description : ''}</p>
+            </div>
+        )
+    }
 }
 
 export default Show;

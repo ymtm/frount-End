@@ -11,6 +11,8 @@ class App extends Component {
       client: false,
       company: false,
       activeComponent:'',
+      thatCompany: [],
+      listOfcomps : true,
     }
   }
   
@@ -36,16 +38,34 @@ class App extends Component {
      )
    })
   }
+  
   showCompany(id) {
+    this.setState({
+      listOfcomps : false,
+    })
    console.log('clicked', id);
+    const companyByID = this.state.companies.filter((elem) =>{
+      return elem.comp_id === id;
+    });
 
-     
-}
-  render() {
+      this.setState({
+        thatCompany : companyByID,
+      })
+      
+    }
+
+    renderCompanyByID(iiid){
+      console.log('*&*',iiid[0]);
+      return <Show thatCompany={iiid[0]}/>
+    }
+
+    render() {
     return (
       <div className="App">
-      <h1>HEY</h1>
-       {this.renderCompanies(this.state.companies)}
+      <h1>Companies</h1>
+      
+       {this.state.listOfcomps ? this.renderCompanies(this.state.companies) : false}
+       { this.renderCompanyByID(this.state.thatCompany)}
       </div>
     );
   }
