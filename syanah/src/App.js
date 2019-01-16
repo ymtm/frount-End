@@ -36,7 +36,7 @@ componentDidMount(){
 renderCompanies(allCompanies){
    return allCompanies.map((company)=>{
      return(
-       <Companies key={company.id} comp={company} showCompany={this.showCompany.bind(this)} createContracts={this.createContracts.bind(this)}/>
+       <Companies key={company.id} comp={company} showCompany={this.showCompany.bind(this)}/>
      )
    })
   }
