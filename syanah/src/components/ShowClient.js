@@ -1,6 +1,7 @@
 import React , { Component } from 'react';
+import Clients from './Clients';
 
-class Show extends Component {
+class ShowClient extends Component {
 
     constructor(){
         super();
@@ -15,9 +16,10 @@ class Show extends Component {
             <div>
                 <h1>{this.props.thatCompany !== undefined ? this.props.thatCompany.comp_name : ''}</h1>
                 <p>{this.props.thatCompany !== undefined ? this.props.thatCompany.comp_description : ''}</p>
+                <Clients/>
             </div>
         )
     }
 }
 
-export default Show;
+export default ShowClient;

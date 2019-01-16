@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import Companies from './components/Companies';
-import Show from './components/Show';
+import ShowClient from './components/ShowClient';
 
 class App extends Component {
   constructor(){
     super()
     this.state = {
       companies:[],
-      client: false,
-      company: false,
+      isClient: false,
       activeComponent:'',
       thatCompany: [],
       listOfcomps : true,
@@ -54,9 +53,9 @@ class App extends Component {
       
     }
 
-    renderCompanyByID(iiid){
-      console.log('*&*',iiid[0]);
-      return <Show thatCompany={iiid[0]}/>
+    renderCompanyByID(comp){
+      console.log('*&*',comp[0]);
+      return <ShowClient thatCompany={comp[0]}/>
     }
 
     render() {
@@ -65,7 +64,7 @@ class App extends Component {
       <h1>Companies</h1>
       
        {this.state.listOfcomps ? this.renderCompanies(this.state.companies) : false}
-       { this.renderCompanyByID(this.state.thatCompany)}
+       { this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}
       </div>
     );
   }
