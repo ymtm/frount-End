@@ -7,9 +7,14 @@ import Show from './components/Show';
 class App extends Component {
   constructor(){
     super();
-    this.state ={
-      compoanie:[],
-      clients: [],
+    this.state = {
+      companies:[],
+      client: false,
+      company: false,
+      activeComponent:'',
+      thatCompany: [],
+
+    
     }
   }
 
