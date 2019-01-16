@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Companies from './components/Companies';
-
 import ShowClient from './components/ShowClient';
 
 
@@ -86,7 +85,23 @@ body: JSON.stringify(client)
     })
   })
 }
- 
+
+/* deleteTheContract(contract){
+  const API_URL= '';
+  const url = API_URL + `/companies/${comp_id}/client/${client_id}`;
+  fetch(url, { method: 'DELETE' })
+    .then(response => response.json())
+    .then(data => {
+       this.state.contract.filter( el => el.id !== contract.id );
+    })
+      try {
+        throw new Error('error in delete contract');
+    }
+    catch(e) {
+        console.log(e);
+    
+    }
+} */
 
 updateStatus(cont_id){
   const url = `http://localhost:3000/companies/contracts/${cont_id.id}`
