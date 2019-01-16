@@ -43,7 +43,7 @@ showCompany(id) {
 
    
 }
-/* deleteTheContract(contract){
+deleteTheContract(contract){
   const API_URL= '';
   const url = API_URL + `/companies/${comp_id}/client/${client_id}`;
   fetch(url, { method: 'DELETE' })
@@ -58,8 +58,7 @@ showCompany(id) {
         console.log(e);
     
     }
-} */
-
+} 
 updateStatus(cont_id){
   const url = `http://localhost:3000/companies/contracts/${cont_id.id}`
     fetch(url, {
