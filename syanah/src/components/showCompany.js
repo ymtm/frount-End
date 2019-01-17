@@ -3,7 +3,7 @@ import React from 'react'
 const ShowCompany =  (props) => {
 
     return(
-        <div>
+        <div> 
             {props.contract.client_name}
             {props.contract.client_type}
             {props.contract.contract_period}

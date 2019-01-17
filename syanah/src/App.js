@@ -41,6 +41,7 @@ class App extends Component {
     }
 
   getCompanyContracts(id) {
+
     this.setState({
       listOfcomps: false,
     })
@@ -57,6 +58,7 @@ class App extends Component {
       .catch(error => {
         console.log(error)
       })
+
     } 
 
   getCompany(id) {
@@ -73,6 +75,7 @@ class App extends Component {
     })
   }
 
+
   //  RENDERS
   //
   //
@@ -84,6 +87,7 @@ class App extends Component {
     if (this.state.thatCompany.length === 0 && this.state.listOfcomps === true) {
       return allCompanies.map((company) => {
         return (
+
         <Companies key={company.id}
                    userType={this.state.userType}
                    comp={company}
@@ -94,6 +98,7 @@ class App extends Component {
     }
   }
   
+
   renderCompanyByID(comp) {
     console.log('* * * * * ', comp[0]);
     return <ShowClient thatCompany={comp[0]} />
@@ -102,7 +107,7 @@ class App extends Component {
   renderContracs(contracts){
     return contracts.map((contract) =>{
       return (
-      <ShowCompany contract={contract}/>
+        <ShowCompany contract={contract}/>
       )
     })
   }
@@ -113,14 +118,36 @@ class App extends Component {
   //
   //
 
-
-
   //  START OF CRUD
   //
   //
   //
 
-  
+
+//   createContracts(client) {
+//     const url = 'http://localhost:3000/clients'
+//     fetch(url, {
+//       method: 'POST',
+//       headers: {
+//         "content-type": "application/json"
+
+//       },
+//       body: JSON.stringify(client)
+//     })
+//       .then(response => response.json())
+//       .then(data => {
+//         console.log('DATA')
+//         console.log('datat');
+//         const updatedClinet = this.state.clients.concat([data])
+//         this.setState({
+//           clients: updatedClinet,
+//         })
+//           .catch((error) => {
+//             console.log(error);
+//           })
+//      })
+//   }
+
 
   //  deleteTheContract(contract){
   //   const API_URL= '';
@@ -138,6 +165,7 @@ class App extends Component {
 
   //     }
   // } 
+
   
   updateStatus(id) {
     const url = API_URL + `/companies/contracts/${id}`
@@ -162,8 +190,10 @@ class App extends Component {
   //
   //
   //
+
   
   //switch between clients and companies as users
+
   setUserTypeToClient() {
     this.setState({
       userType: 'client'
@@ -175,7 +205,6 @@ class App extends Component {
       userType: 'company'
     })
   }
-
 
 
   // checkingSelection() {
