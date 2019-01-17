@@ -157,7 +157,11 @@ class App extends Component {
       },
       body: JSON.stringify(state)
     })
-      .then(response => response.json())
+      .then(response => {
+        console.log(response)
+        // response.json()
+      })
+
       .then(data => {
         console.log(data)
       })
@@ -206,8 +210,8 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <button className="btn btn-sm m-2 btn-danger" onClick={() => { this.setUserTypeToClient() }}> client</button>
-        <button className="btn btn-sm m-2 btn-primary" onClick={() => { this.setUserTypeToCompany() }}>company</button>
+        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToClient() }}> client</button>
+        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToCompany() }}>company</button>
 
         {this.state.userType ? this.renderCompanies(this.state.companies) : ''}
         {this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}
