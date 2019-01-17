@@ -1,23 +1,12 @@
-import React , { Component } from 'react';
-import Clients from './Clients';
+import React from 'react'
 
-class ShowCompany extends Component {
-    constructor(){
-        super();
-        this.state =  {
+const ShowCompany =  (props) => {
 
-        }
-    }
-    render(){
-
-        return(
-            <div>
-                <h1>{this.props.thatCompany !== undefined ? this.props.thatCompany.comp_name : ''}</h1>
-                <p>{this.props.thatCompany !== undefined ? this.props.thatCompany.comp_description : ''}</p>
-                <Clients/>
-            </div>
-        )
-    }
+    return(
+        <div>
+            {props.contract.client_name}
+        </div>
+    )
 }
 
-export default ShowCompany;
+export default ShowCompany
