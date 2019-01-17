@@ -61,9 +61,9 @@ class App extends Component {
   }
 
   getCompany(id) {
-    this.setState({
-      userType: null,
-    })
+    // this.setState({
+    //   userType: null,
+    // })
     console.log('clicked', id);
     const companyByID = this.state.companies.filter((elem) => {
       return elem.comp_id === id;
@@ -124,24 +124,6 @@ class App extends Component {
   //
   //
 
-
-
-  //  deleteTheContract(comp_id,client_id){
-
-  //   const url = API_URL + `/companies/${comp_id}/client/${client_id}`;
-  //   fetch(url, { method: 'DELETE' })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //        this.state.contracts.filter( el => el.id !== contract.id );
-  //     })
-  //       try {
-  //         throw new Error('error in delete contract');
-  //     }
-  //     catch(e) {
-  //         console.log(e);
-
-  //     }
-  // } 
   
   updateStatus(contract) {
     console.log(contract);
@@ -192,17 +174,39 @@ class App extends Component {
       userType: 'company'
     })
   }
+  setHomePage(){
+    this.setState({
+      userType: null,
+      thatCompany: [],
+      listOfcomps: true
+    })
+   }
+
+   setHomeButton(){
+    if (this.state.userType !== null){
+      return <button onClick={() =>{ this.setHomePage()} }>Home  </button>
+    } else {
+      return
+      // <button onClick={() =>{ this.setHomePage()} }>Home  </button>
+    }
+   }
+   
 
   render() {
     return (
       <div className="container">
-        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToClient() }}> client</button>
-        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToCompany() }}>company</button>
+        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToClient() }}> Client</button>
+        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToCompany() }}>Companies</button>
+        
+        {this.setHomeButton()}
+
+        
 
         {this.state.userType ? this.renderCompanies(this.state.companies) : ''}
         {this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}
         {this.state.userType === 'company' ? this.renderContracs(this.state.contracts) : ''}
       </div>
+
 
 
     );
