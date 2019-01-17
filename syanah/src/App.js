@@ -105,6 +105,7 @@ class App extends Component {
 
 
   renderContracs(contracts) {
+    console.log("renderContracs" , contracts , this.state.contracts)
     return contracts.map((contract) => {
       return (
         <ShowCompany contract={contract}
@@ -131,12 +132,13 @@ class App extends Component {
     fetch(url, { method: 'DELETE' })
       .then(response => response.json())
       .then(data => {
-        console.log("data" , data)
          const updatedContracts = this.state.contracts.filter(
-           contract => contract.comp_id !== comp_id && contract.client_id !== client_id 
+           contract => contract.comp_id == comp_id && contract.client_id !== client_id
            )
+      
            this.setState({
-             contract : updatedContracts
+            contracts : updatedContracts,
+             userType : "company"
            })
       })
       .catch((error) => console.log(error))
@@ -160,7 +162,17 @@ class App extends Component {
       .then(response =>  response.json())
 
       .then(data => {
-        console.log(data)
+        console.log(data);
+        this.getCompanyContracts(contract.comp_id);
+        // const updatedContracts = this.state.contracts.map(contract => 
+        //   contract.contract_id === data.contract_id ? data : contract
+        //   )
+        // this.setState({
+        //   contracts : updatedContracts,
+        //    userType : "company"
+        //  },() => {
+        //    console.log(this.state.contracts)
+        //  })
       })
       .catch(error => {
         console.log(error);
