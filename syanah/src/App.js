@@ -87,6 +87,7 @@ class App extends Component {
   renderCompanyByID(comp) {
     console.log('* * * * * ', comp[0]);
     return <ShowClient thatCompany={comp[0]} />
+
   }
 
   renderContracs(contracts){
@@ -188,10 +189,17 @@ setHomePage(){
     userType: null,
     thatCompany: []
   }) 
-  return(
-    <button onClick={() =>{ this.setHomePage()} }>Home  </button>
-  )
 }
+
+setHomeButton(){
+  if (this.state.userType !== null){
+    return <button onClick={() =>{ this.setHomePage()} }>Home  </button> 
+  } else {
+    return 
+    // <button onClick={() =>{ this.setHomePage()} }>Home  </button> 
+  }
+}
+
 
   // checkingSelection() {
   //   // this will check wheather the selection on the landing page is a client or a company,
@@ -204,8 +212,7 @@ setHomePage(){
       <main className="container">
         <button className="btn btn-sm m-2 btn-danger" onClick={() => { this.setUserTypeToClient() }}> client</button>
         <button className="btn btn-sm m-2 btn-primary" onClick={() => { this.setUserTypeToCompany() }}>company</button>
-        
-        <button onClick={() =>{ this.setHomePage()} }>Home  </button> 
+        {this.setHomeButton()}
         <div className="image">
         <img src={logo} style={{width:'400px' , height:'200px' , alignContent: 'center'}} alt="HEYA"/>
         </div>
