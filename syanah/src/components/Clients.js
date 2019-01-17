@@ -12,7 +12,7 @@ class Clients extends Component{
 }
     render(){
         return(
-            <div className="modal">
+            <div>
                 <form className="cont_client">
                 <label>Clinet Name:</label><input type="text" value={this.state.name} name="name"/><br/>
                 <label>Building Type:</label> <input type="text" value={this.state.date} name="type"/><br/>
