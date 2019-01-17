@@ -46,7 +46,7 @@ class ShowClient extends Component {
 
     render(){
         return(
-            <div>
+            <div className="container">
                 <h1>{this.props.thatCompany !== undefined ? this.props.thatCompany.comp_name : ''}</h1>
                 <p>{this.props.thatCompany !== undefined ? this.props.thatCompany.comp_description : ''}</p>
                 <Clients createContracts={this.createContracts.bind(this)} comp_id={this.props.thatCompany.comp_id}/>
