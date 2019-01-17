@@ -16,7 +16,7 @@ class App extends Component {
       activeComponent: '',
       thatCompany: [],
       listOfcomps : true,
-      client: [],
+      // client: [],
       isSelected: false,
       userType: null,
       contracts:[],
@@ -78,59 +78,57 @@ class App extends Component {
   //
 
 
-  renderCompanies(allCompanies) {
-    if (this.state.thatCompany.length === 0) {
-      return allCompanies.map((company) => {
-        return (
-          <Companies key={company.id} userType={this.state.userType} comp={company} getCompanyContracts={this.getCompanyContracts.bind(this)} getCompany={this.getCompany.bind(this)} createContracts={this.createContracts.bind(this)}/>
-        )
-      })
-    }
-
-  }
-
-createContracts(client){
-  console.log('$$$$$$',client)
-  const url = 'http://localhost:3000/client'
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      "content-type": "application/json"
-
-    },
-    body: JSON.stringify(client)
-  
-  })
-  .then(response => response.json())
-  .then(data =>{
-    console.log('DATA')
-    console.log('data');
-    const updatedClinet = this.state.client.concat([data])
-    this.setState({
-      client: updatedClinet,
-  
-    })
-    console.log(this.state.client)
-  })
-    .catch((error) => {
-      console.log(error);
-    })
-}
- 
-
-  renderCompanyByID(comp) {
-    console.log('* * * * * ', comp[0]);
-    return <ShowClient thatCompany={comp[0]} />
-  }
-
-  renderContracs(contracts){
-    return contracts.map((contract) =>{
+renderCompanies(allCompanies) {
+  if (this.state.thatCompany.length === 0) {
+    return allCompanies.map((company) => {
       return (
-        <ShowCompany contract={contract}/>
+      <Companies key={company.id} userType={this.state.userType} comp={company} getCompanyContracts={this.getCompanyContracts.bind(this)} getCompany={this.getCompany.bind(this)}/>
       )
     })
-  
   }
+}
+
+// createContracts(client){
+//   console.log('$$$$$$',client)
+//   const url = API_URL + `/client`
+//   fetch(url, {
+//     method: 'POST',
+//     headers: {
+//       "content-type": "application/json"
+
+//     },
+//     body: JSON.stringify(client)
+  
+//   })
+//   .then(response => response.json())
+//   .then(data =>{
+//     console.log('DATA')
+//     console.log(data);
+//     const updatedClinet = this.state.client.concat([data])
+//     this.setState({
+//       client: updatedClinet,
+  
+//     })
+//     console.log(this.state.client)
+//   })
+//     .catch((error) => {
+//       console.log(error);
+//     })
+// }
+ 
+
+renderCompanyByID(comp) {
+  console.log('* * * * * ', comp[0]);
+  return <ShowClient thatCompany={comp[0]} />
+}
+
+renderContracs(contracts){
+  return contracts.map((contract) =>{
+    return (
+    <ShowCompany contract={contract}/>
+    )
+  })
+}
 
 
   //
@@ -164,25 +162,24 @@ createContracts(client){
   //     }
   // } 
 
-  updateStatus(id) {
-    const url = API_URL + `/companies/contracts/${id}`
-    fetch(url, {
-      method: 'PUT',
-      headers: {
-        "Content-Type": "application/json"
-      },
+updateStatus(id) {
+  const url = API_URL + `/companies/contracts/${id}`
+  fetch(url, {
+    method: 'PUT',
+    headers: {
+      "Content-Type": "application/json"
+    },
       body: JSON.stringify(id)
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+    })
+    .catch(error => {
+      console.log(error);
+    })
 
-      })
-      .catch(error => {
-        console.log(error);
-      })
-
-  }
+}
 
   //END OF CRUD 
   //
@@ -190,17 +187,18 @@ createContracts(client){
   //
   //
   
-  setUserTypeToClient() {
-    this.setState({
-      userType: 'client'
-    })
+setUserTypeToClient() {
+  this.setState({
+    userType: 'client'
+})
 
-  }
-  setUserTypeToCompany() {
-    this.setState({
-      userType: 'company'
-    })
-  }
+}
+  
+setUserTypeToCompany() {
+  this.setState({
+    userType: 'company'
+  })
+}
 
 
 

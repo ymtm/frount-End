@@ -1,14 +1,44 @@
 import React , { Component } from 'react';
 import Clients from './Clients';
 
+const API_URL = 'http://localhost:3000'
+
 class ShowClient extends Component {
 
     constructor(){
         super();
         this.state =  {
+            client: [],
 
         }
     }
+    createContracts(client){
+        console.log('$$$$$$',client)
+        const url = API_URL + `/client`
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            "content-type": "application/json"
+      
+          },
+          body: JSON.stringify(client)
+        
+        })
+        .then(response => response.json())
+        .then(data =>{
+          console.log('DATA')
+          console.log(data);
+          const updatedClinet = this.state.client.concat([data])
+          this.setState({
+            client: updatedClinet,
+        
+          })
+          console.log(this.state.client)
+        })
+          .catch((error) => {
+            console.log(error);
+          })
+      }
 
     render(){
 
@@ -16,7 +46,7 @@ class ShowClient extends Component {
             <div>
                 <h1>{this.props.thatCompany !== undefined ? this.props.thatCompany.comp_name : ''}</h1>
                 <p>{this.props.thatCompany !== undefined ? this.props.thatCompany.comp_description : ''}</p>
-                <Clients/>
+                <Clients createContracts={this.createContracts.bind(this)}/>
             </div>
         )
     }

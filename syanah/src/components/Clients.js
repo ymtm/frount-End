@@ -16,7 +16,7 @@ class Clients extends Component{
 
     handleChange(event){
         const currInput = event.target.name;
-        const newValue = event.target.value;
+        const newValue = currInput === "period" ? Number(event.target.value) : event.target.value;
         
         this.setState({
             [currInput]: newValue
@@ -37,9 +37,9 @@ class Clients extends Component{
                 <label>Building Type:</label> <input type="text" value={this.state.type} name="type" onChange={this.handleChange}/><br/>
                 <label>Contract Period:</label>
                     <select name="period" value={this.state.period} onChange={this.handleChange}>
-                        <option selected value='3'>3 months</option>
-                        <option value='6'>6 months</option>
-                        <option value='12'>12 months</option>
+                        <option selected value= "3" >3 months</option>
+                        <option value= "6" >6 months</option>
+                        <option value= "12" >12 months</option>
                     </select><br/>
                 <button>submit</button>
         

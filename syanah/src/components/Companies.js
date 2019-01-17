@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Clients from './Clients';
+
 
 const Companies = (props) => {
     return(
@@ -10,7 +10,7 @@ const Companies = (props) => {
                 <h1>{props.comp.comp_name}</h1>    
             </div>
                 
-            <Clients createContracts={props.createContracts}/>
+            
         </div>
     )
 }
