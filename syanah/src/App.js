@@ -96,11 +96,15 @@ class App extends Component {
   }
 
   renderContracs(contracts){
+    this.setState({
+      userType:'client'
+    })
     return contracts.map((contract) =>{
       return (
         <ShowCompany 
         contract={contract}/>
       )
+      
     }) 
   }
 
@@ -196,7 +200,8 @@ class App extends Component {
 setHomePage(){
   this.setState({
     userType: null,
-    thatCompany: []
+    thatCompany: [],
+    listOfcomps: true
   }) 
 }
 
@@ -220,7 +225,9 @@ setHomeButton(){
       <main className="container">
         <button className="btn btn-sm m-2 btn-danger" onClick={() => { this.setUserTypeToClient() }}> client</button>
         <button className="btn btn-sm m-2 btn-primary" onClick={() => { this.setUserTypeToCompany() }}>company</button>
+        
         {this.setHomeButton()}
+        {/* //alert with the submittion of the contract the renders back to the homePage  */}
         <div className="image">
         <img src={logo} style={{width:'400px' , height:'200px' , alignContent: 'center'}} alt="HEYA"/>
         </div>
