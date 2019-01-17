@@ -8,7 +8,6 @@ import ShowCompany from './components/showCompany';
 //be fitched multiball times inside the app.js
 const API_URL = 'http://localhost:3000'
 
-
 class App extends Component {
   constructor() {
     super();
@@ -86,7 +85,6 @@ class App extends Component {
     if (this.state.thatCompany.length === 0 && this.state.listOfcomps === true) {
       return allCompanies.map((company) => {
         return (
-
           <Companies key={company.id}
             userType={this.state.userType}
             comp={company}
@@ -105,10 +103,12 @@ class App extends Component {
 
 
   renderContracs(contracts) {
+    console.log("renderContracs" , contracts , this.state.contracts)
     return contracts.map((contract) => {
       return (
         <ShowCompany contract={contract}
-                     updateStatus={this.updateStatus.bind(this)}/>
+          updateStatus={this.updateStatus.bind(this)} 
+          deleteContract={this.deleteTheContract.bind(this)}/>
       )
     })
   }
@@ -124,7 +124,26 @@ class App extends Component {
   //
   //
 
+
+   deleteTheContract(comp_id,client_id){
+    const url = API_URL + `/companies/${comp_id}/client/${client_id}`;
+      console.log("IN *** ");
+    fetch(url, { method: 'DELETE' })
+      .then(response => response.json())
+      .then(data => {
+         const updatedContracts = this.state.contracts.filter(
+           contract => contract.comp_id == comp_id && contract.client_id !== client_id
+           )
+      
+           this.setState({
+            contracts : updatedContracts,
+             userType : "company"
+           })
+      })
+      .catch((error) => console.log(error))
+  } 
   
+
   updateStatus(contract) {
     console.log(contract);
     const state = {
@@ -140,9 +159,10 @@ class App extends Component {
       body: JSON.stringify(state)
     })
       .then(response =>  response.json())
-
+ 
       .then(data => {
-        console.log(data)
+        console.log(data);
+        this.getCompanyContracts(contract.comp_id);
       })
       .catch(error => {
         console.log(error);
