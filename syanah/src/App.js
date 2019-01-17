@@ -107,7 +107,8 @@ class App extends Component {
   renderContracs(contracts) {
     return contracts.map((contract) => {
       return (
-        <ShowCompany contract={contract} />
+        <ShowCompany contract={contract}
+                     updateStatus={this.updateStatus.bind(this)}/>
       )
     })
   }
@@ -141,18 +142,23 @@ class App extends Component {
 
   //     }
   // } 
-
-
-  updateStatus(id) {
-    const url = API_URL + `/companies/contracts/${id}`
+  
+  updateStatus(contract) {
+    console.log(contract);
+    const state = {
+      status: 'Active',
+      cont_id: contract.contract_id
+    }
+    const url = API_URL + `/companies/contracts/${contract.contract_id}`;
     fetch(url, {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(id)
+      body: JSON.stringify(state)
     })
-      .then(response => response.json())
+      .then(response =>  response.json())
+
       .then(data => {
         console.log(data)
       })
@@ -201,8 +207,8 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <button className="btn btn-sm m-2 btn-danger" onClick={() => { this.setUserTypeToClient() }}> client</button>
-        <button className="btn btn-sm m-2 btn-primary" onClick={() => { this.setUserTypeToCompany() }}>company</button>
+        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToClient() }}> client</button>
+        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToCompany() }}>company</button>
 
         {this.state.userType ? this.renderCompanies(this.state.companies) : ''}
         {this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}
