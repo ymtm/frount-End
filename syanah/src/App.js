@@ -4,7 +4,8 @@ import Companies from './components/Companies';
 import ShowClient from './components/ShowClient';
 import ShowCompany from './components/ShowCompany';
 
-
+//for heruok purpose there is this api-url which will
+//be fitched multiball times inside the app.js
 const API_URL = 'http://localhost:3000'
 
 
@@ -16,10 +17,9 @@ class App extends Component {
       activeComponent: '',
       thatCompany: [],
       listOfcomps : true,
-      // client: [],
       isSelected: false,
       userType: null,
-      contracts:[],
+      contracts:[]
 
     }
   }
@@ -41,8 +41,11 @@ class App extends Component {
     }
 
   getCompanyContracts(id) {
-    console.log('fetching data');
+    this.setState({
+      listOfcomps: false,
+    })
     const url = API_URL + `/companies/show/${id}`
+    console.log('fetching data');
     fetch(url)
       .then(response => response.json())
       .then(data => {
@@ -54,21 +57,21 @@ class App extends Component {
       .catch(error => {
         console.log(error)
       })
-    }
-        getCompany(id) {
-          this.setState({
-            listOfcomps: false,
-          })
-          console.log('clicked', id);
-          const companyByID = this.state.companies.filter((elem) => {
-            return elem.comp_id === id;
-          });
-      
-          this.setState({
-            thatCompany: companyByID,
-          })
-      
-        }
+    } 
+
+  getCompany(id) {
+    this.setState({
+      userType: null,
+    })
+    console.log('clicked', id);
+    const companyByID = this.state.companies.filter((elem) => {
+      return elem.comp_id === id;
+    });
+    
+    this.setState({
+      thatCompany: companyByID,
+    })
+  }
 
   //  RENDERS
   //
@@ -76,59 +79,33 @@ class App extends Component {
   //
   //
   //
-
-
-renderCompanies(allCompanies) {
-  if (this.state.thatCompany.length === 0) {
-    return allCompanies.map((company) => {
+  
+  renderCompanies(allCompanies) {
+    if (this.state.thatCompany.length === 0 && this.state.listOfcomps === true) {
+      return allCompanies.map((company) => {
+        return (
+        <Companies key={company.id}
+                   userType={this.state.userType}
+                   comp={company}
+                   getCompanyContracts={this.getCompanyContracts.bind(this)}
+                   getCompany={this.getCompany.bind(this)}/>
+                )
+      })
+    }
+  }
+  
+  renderCompanyByID(comp) {
+    console.log('* * * * * ', comp[0]);
+    return <ShowClient thatCompany={comp[0]} />
+  }
+  
+  renderContracs(contracts){
+    return contracts.map((contract) =>{
       return (
-      <Companies key={company.id} userType={this.state.userType} comp={company} getCompanyContracts={this.getCompanyContracts.bind(this)} getCompany={this.getCompany.bind(this)}/>
+      <ShowCompany contract={contract}/>
       )
     })
   }
-}
-
-// createContracts(client){
-//   console.log('$$$$$$',client)
-//   const url = API_URL + `/client`
-//   fetch(url, {
-//     method: 'POST',
-//     headers: {
-//       "content-type": "application/json"
-
-//     },
-//     body: JSON.stringify(client)
-  
-//   })
-//   .then(response => response.json())
-//   .then(data =>{
-//     console.log('DATA')
-//     console.log(data);
-//     const updatedClinet = this.state.client.concat([data])
-//     this.setState({
-//       client: updatedClinet,
-  
-//     })
-//     console.log(this.state.client)
-//   })
-//     .catch((error) => {
-//       console.log(error);
-//     })
-// }
- 
-
-renderCompanyByID(comp) {
-  console.log('* * * * * ', comp[0]);
-  return <ShowClient thatCompany={comp[0]} />
-}
-
-renderContracs(contracts){
-  return contracts.map((contract) =>{
-    return (
-    <ShowCompany contract={contract}/>
-    )
-  })
-}
 
 
   //
@@ -161,25 +138,24 @@ renderContracs(contracts){
 
   //     }
   // } 
-
-updateStatus(id) {
-  const url = API_URL + `/companies/contracts/${id}`
-  fetch(url, {
-    method: 'PUT',
-    headers: {
-      "Content-Type": "application/json"
-    },
+  
+  updateStatus(id) {
+    const url = API_URL + `/companies/contracts/${id}`
+    fetch(url, {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(id)
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data)
-    })
-    .catch(error => {
-      console.log(error);
-    })
-
-}
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
 
   //END OF CRUD 
   //
@@ -187,18 +163,18 @@ updateStatus(id) {
   //
   //
   
-setUserTypeToClient() {
-  this.setState({
-    userType: 'client'
-})
-
-}
+  //switch between clients and companies as users
+  setUserTypeToClient() {
+    this.setState({
+      userType: 'client'
+    })
+  }
   
-setUserTypeToCompany() {
-  this.setState({
-    userType: 'company'
-  })
-}
+  setUserTypeToCompany() {
+    this.setState({
+      userType: 'company'
+    })
+  }
 
 
 
@@ -212,14 +188,14 @@ setUserTypeToCompany() {
 
   render() {
     return (
-      <main className="container">
+      <div className="container">
         <button className="btn btn-sm m-2 btn-danger" onClick={() => { this.setUserTypeToClient() }}> client</button>
         <button className="btn btn-sm m-2 btn-primary" onClick={() => { this.setUserTypeToCompany() }}>company</button>
 
         {this.state.userType ? this.renderCompanies(this.state.companies) : ''}
         {this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}
         {this.state.userType === 'company' ? this.renderContracs(this.state.contracts) : ''}
-      </main>
+      </div>
 
 
     );

@@ -12,6 +12,10 @@ class ShowClient extends Component {
 
         }
     }
+
+      //send formInputs to the database
+      // which will be called back from database on comapniesShow  
+   
     createContracts(client){
         console.log('$$$$$$',client)
         const url = API_URL + `/client`
