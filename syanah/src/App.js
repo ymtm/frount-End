@@ -13,11 +13,11 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      companies: [],
       // activeComponent: '',
+      // isSelected: false,
+      companies: [],
       thatCompany: [],
       listOfcomps: true,
-      // isSelected: false,
       userType: null,
       contracts: []
 
@@ -169,7 +169,6 @@ class App extends Component {
 
 
   //switch between clients and companies as users
-
   setUserTypeToClient() {
     this.setState({
       userType: 'client'
@@ -180,7 +179,6 @@ class App extends Component {
     // fetch update 
     this.state.contracts.indexOf(contract)
     // set state 
-    
 
   }
   setUserTypeToCompany() {
@@ -188,15 +186,6 @@ class App extends Component {
       userType: 'company'
     })
   }
-
-
-  // checkingSelection() {
-  //   // this will check wheather the selection on the landing page is a client or a company,
-  //   //and it going to render different stuff based on that selection
-
-  // }
-
-
 
   render() {
     return (
