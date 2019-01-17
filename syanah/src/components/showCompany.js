@@ -9,6 +9,7 @@ const ShowCompany =  (props) => {
             {props.contract.contract_period}
             {props.contract.contract_status}
             {props.contract.contract_issue_date}
+            <button>Activate contract</button>
         </div>
     )
 }
