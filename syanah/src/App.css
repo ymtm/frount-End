@@ -1,0 +1,11 @@
+body{
+    background-image: url("https://wallpaper.wiki/wp-content/uploads/2017/04/wallpaper.wiki-Free-hd-building-wallpaper-PIC-WPC008246.jpg");
+    background-repeat: no-repeat;
+    /* background-position: center; Center the image */
+    background-size: cover;
+}
+.Hey{
+    color: aliceblue;
+    align-content: center;
+    justify-items: auto;
+}

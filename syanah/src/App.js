@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Companies from './components/Companies';
 import ShowClient from './components/ShowClient';
-
+import logo from './images/syanaPic.png'
 
 class App extends Component {
   constructor(){
@@ -139,8 +139,11 @@ toggleCompany(){
       <main className="container">
         <button className="btn btn-sm m-2 btn-danger" onClick = {this.toggleIsClient.bind(this)} > client</button>
         <button className="btn btn-sm m-2 btn-primary" onClick = {this.toggleCompany.bind(this)}> company</button>
-        <h1>HEY</h1>
-       <h1>Companies</h1>
+        {/* <h1 className="Hey">HEY Companies</h1> */}
+
+        <div className="image">
+        <img src={logo} style={{width:'400px' , height:'200px' , alignContent: 'center'}} alt="HEYA"/>
+        </div>
        {this.state.listOfcomps ? this.renderCompanies(this.state.companies) : ''}
        {this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}
       </main>
