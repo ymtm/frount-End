@@ -4,6 +4,10 @@ import Companies from './components/Companies';
 import ShowClient from './components/ShowClient';
 import ShowCompany from './components/ShowCompany';
 
+
+const API_URL = 'http://localhost:3000'
+
+
 class App extends Component {
   constructor() {
     super();
@@ -22,7 +26,8 @@ class App extends Component {
 
   componentDidMount() {
     console.log('fetching data');
-    fetch('http://localhost:3000/companies')
+    const url = API_URL + `/companies`
+    fetch(url)
       .then(response => response.json())
       .then(data => {
         console.log(data);
@@ -34,10 +39,11 @@ class App extends Component {
         console.log(error)
       })
     }
-    
+
   getCompanyContracts(id) {
     console.log('fetching data');
-    fetch(`http://localhost:3000/companies/show/${id}`)
+    const url = API_URL + `/companies/show/${id}`
+    fetch(url)
       .then(response => response.json())
       .then(data => {
         console.log(data);
@@ -158,14 +164,14 @@ createContracts(client){
   //     }
   // } 
 
-  updateStatus(cont_id) {
-    const url = `http://localhost:3000/companies/contracts/${cont_id.id}`
+  updateStatus(id) {
+    const url = API_URL + `/companies/contracts/${id}`
     fetch(url, {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(cont_id)
+      body: JSON.stringify(id)
     })
       .then(response => response.json())
       .then(data => {
