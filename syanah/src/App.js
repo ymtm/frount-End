@@ -158,7 +158,7 @@ class App extends Component {
       body: JSON.stringify(state)
     })
       .then(response => {
-        console.log(response)
+        console.log(' %%',response)
         // response.json()
       })
 
