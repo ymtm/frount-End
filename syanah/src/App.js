@@ -35,6 +35,9 @@ class App extends Component {
   }
 
   getCompanyContracts(id) {
+      this.setState({
+            listOfcomps: false,
+          })
     console.log('fetching data');
     fetch(`http://localhost:3000/companies/show/${id}`)
       .then(response => response.json())
@@ -50,7 +53,7 @@ class App extends Component {
     }
         getCompany(id) {
           this.setState({
-            listOfcomps: false,
+            userType: null,
           })
           console.log('clicked', id);
           const companyByID = this.state.companies.filter((elem) => {
@@ -72,16 +75,18 @@ class App extends Component {
 
 
   renderCompanies(allCompanies) {
-    if (this.state.thatCompany.length === 0) {
+    if (this.state.thatCompany.length === 0 && this.state.listOfcomps === true) {
       return allCompanies.map((company) => {
         return (
-          <Companies key={company.id} userType={this.state.userType} comp={company} getCompanyContracts={this.getCompanyContracts.bind(this)} getCompany={this.getCompany.bind(this)} />
+          <Companies key={company.id} 
+          userType={this.state.userType} 
+          comp={company} 
+          getCompanyContracts={this.getCompanyContracts.bind(this)} 
+          getCompany={this.getCompany.bind(this)} />
         )
       })
     }
-
   }
-
 
   renderCompanyByID(comp) {
     console.log('* * * * * ', comp[0]);
@@ -91,10 +96,10 @@ class App extends Component {
   renderContracs(contracts){
     return contracts.map((contract) =>{
       return (
-        <ShowCompany contract={contract}/>
+        <ShowCompany 
+        contract={contract}/>
       )
-    })
-  
+    }) 
   }
 
 
@@ -103,14 +108,12 @@ class App extends Component {
   //
   //
 
-
-
   //  START OF CRUD
   //
   //
   //
 
-  creatNewCompanies(client) {
+  createContracts(client) {
     const url = 'http://localhost:3000/clients'
     fetch(url, {
       method: 'POST',
@@ -119,7 +122,6 @@ class App extends Component {
 
       },
       body: JSON.stringify(client)
-
     })
       .then(response => response.json())
       .then(data => {
@@ -128,12 +130,11 @@ class App extends Component {
         const updatedClinet = this.state.clients.concat([data])
         this.setState({
           clients: updatedClinet,
-
         })
           .catch((error) => {
             console.log(error);
           })
-      })
+     })
   }
 
   //  deleteTheContract(contract){
@@ -154,7 +155,7 @@ class App extends Component {
   // } 
 
   updateStatus(cont_id) {
-    const url = `http://localhost:3000/companies/contracts/${cont_id.id}`
+    const url = `http://localhost:3000/companies/contracts/${cont_id}`
     fetch(url, {
       method: 'PUT',
       headers: {
@@ -178,7 +179,7 @@ class App extends Component {
   //
   //
   //
-  
+
   setUserTypeToClient() {
     this.setState({
       userType: 'client'
@@ -190,7 +191,6 @@ class App extends Component {
       userType: 'company'
     })
   }
-
 
 
   // checkingSelection() {
