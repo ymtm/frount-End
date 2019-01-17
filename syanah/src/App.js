@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Companies from './components/Companies';
 import ShowClient from './components/ShowClient';
-import ShowCompany from './components/ShowCompany';
+import ShowCompany from './components/showCompany';
 
 //for heruok purpose there is this api-url which will
 //be fitched multiball times inside the app.js
