@@ -14,12 +14,12 @@ class App extends Component {
     super();
     this.state = {
       companies: [],
-      activeComponent: '',
+      // activeComponent: '',
       thatCompany: [],
-      listOfcomps : true,
-      isSelected: false,
+      listOfcomps: true,
+      // isSelected: false,
       userType: null,
-      contracts:[]
+      contracts: []
 
     }
   }
@@ -38,7 +38,7 @@ class App extends Component {
       .catch(error => {
         console.log(error)
       })
-    }
+  }
 
   getCompanyContracts(id) {
     this.setState({
@@ -57,7 +57,8 @@ class App extends Component {
       .catch(error => {
         console.log(error)
       })
-    } 
+
+  }
 
   getCompany(id) {
     this.setState({
@@ -67,11 +68,12 @@ class App extends Component {
     const companyByID = this.state.companies.filter((elem) => {
       return elem.comp_id === id;
     });
-    
+
     this.setState({
       thatCompany: companyByID,
     })
   }
+
 
   //  RENDERS
   //
@@ -79,28 +81,31 @@ class App extends Component {
   //
   //
   //
-  
+
   renderCompanies(allCompanies) {
     if (this.state.thatCompany.length === 0 && this.state.listOfcomps === true) {
       return allCompanies.map((company) => {
         return (
-        <Companies key={company.id}
-                   userType={this.state.userType}
-                   comp={company}
-                   getCompanyContracts={this.getCompanyContracts.bind(this)}
-                   getCompany={this.getCompany.bind(this)}/>
-                )
+
+          <Companies key={company.id}
+            userType={this.state.userType}
+            comp={company}
+            getCompanyContracts={this.getCompanyContracts.bind(this)}
+            getCompany={this.getCompany.bind(this)} />
+        )
       })
     }
   }
-  
+
+
   renderCompanyByID(comp) {
     console.log('* * * * * ', comp[0]);
     return <ShowClient thatCompany={comp[0]} />
   }
-  
-  renderContracs(contracts){
-    return contracts.map((contract) =>{
+
+
+  renderContracs(contracts) {
+    return contracts.map((contract) => {
       return (
       <ShowCompany contract={contract} updateStatus={this.updateStatus.bind(this)}/>
       )
@@ -113,22 +118,20 @@ class App extends Component {
   //
   //
 
-
-
   //  START OF CRUD
   //
   //
   //
 
-  
 
-  //  deleteTheContract(contract){
-  //   const API_URL= '';
+
+  //  deleteTheContract(comp_id,client_id){
+
   //   const url = API_URL + `/companies/${comp_id}/client/${client_id}`;
   //   fetch(url, { method: 'DELETE' })
   //     .then(response => response.json())
   //     .then(data => {
-  //        this.state.contract.filter( el => el.id !== contract.id );
+  //        this.state.contracts.filter( el => el.id !== contract.id );
   //     })
   //       try {
   //         throw new Error('error in delete contract');
@@ -167,20 +170,28 @@ class App extends Component {
   //
   //
   //
-  
+
+
   //switch between clients and companies as users
+
   setUserTypeToClient() {
     this.setState({
       userType: 'client'
     })
   }
-  
+
+  setContractStatus(contract) {
+    // fetch update 
+    this.state.contracts.indexOf(contract)
+    // set state 
+    
+
+  }
   setUserTypeToCompany() {
     this.setState({
       userType: 'company'
     })
   }
-
 
 
   // checkingSelection() {
