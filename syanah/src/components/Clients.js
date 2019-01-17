@@ -14,8 +14,12 @@ class Clients extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    //handleChange to  handle the state of clients input
+    // which we gonna use in onChange at each input
     handleChange(event){
         const currInput = event.target.name;
+
+        // one of the input has to be send as integer
         const newValue = currInput === "period" ? Number(event.target.value) : event.target.value;
         
         this.setState({
@@ -23,6 +27,7 @@ class Clients extends Component{
         })
     }
 
+    //this can submit any changes we have made in the state
     handleSubmit(event){
         event.preventDefault();
         console.log('U R doin somethin!!!')
