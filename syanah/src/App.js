@@ -102,7 +102,7 @@ class App extends Component {
   renderContracs(contracts){
     return contracts.map((contract) =>{
       return (
-      <ShowCompany contract={contract}/>
+      <ShowCompany contract={contract} updateStatus={this.updateStatus.bind(this)}/>
       )
     })
   }
@@ -139,14 +139,19 @@ class App extends Component {
   //     }
   // } 
   
-  updateStatus(id) {
-    const url = API_URL + `/companies/contracts/${id}`
+  updateStatus(contract) {
+    console.log(contract);
+    const state = {
+      status: 'Active',
+      cont_id: contract.contract_id
+    };
+    const url = API_URL + `/companies/contracts/${contract.contract_id}`;
     fetch(url, {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(id)
+      body: JSON.stringify(state)
     })
       .then(response => response.json())
       .then(data => {
