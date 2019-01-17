@@ -52,9 +52,6 @@ class App extends Component {
       })
     }
         getCompany(id) {
-          this.setState({
-            userType: null,
-          })
           console.log('clicked', id);
           const companyByID = this.state.companies.filter((elem) => {
             return elem.comp_id === id;
@@ -72,7 +69,6 @@ class App extends Component {
   //
   //
   //
-
 
   renderCompanies(allCompanies) {
     if (this.state.thatCompany.length === 0 && this.state.listOfcomps === true) {

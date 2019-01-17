@@ -11,7 +11,6 @@ class ShowClient extends Component {
     }
 
     render(){
-
         return(
             <div>
                 <h1>{this.props.thatCompany !== undefined ? this.props.thatCompany.comp_name : ''}</h1>
