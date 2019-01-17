@@ -18,10 +18,13 @@ const ShowCompany =  (props) => {
         
             <div className="text-center">
                 <button type="button" className="btn m-2 btn-outline-dark" onClick={() =>  props.updateStatus(props.contract)}>Edit</button>
-                <button type="button" className="btn m-2 btn-outline-dark">Delete</button>
+                <button type="button" className="btn m-2 btn-outline-dark" onClick={() => props.deleteContract(props.contract.comp_id ,props.contract.client_id)}>Delete</button>
             </div>
         </div>
     )
 }
 
-export default ShowCompany
+
+
+
+export default ShowCompany;

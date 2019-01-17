@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Companies from './components/Companies';
 import ShowClient from './components/ShowClient';
-import ShowCompany from './components/ShowCompany';
+import ShowCompany from './components/showCompany';
 
 //for heruok purpose there is this api-url which will
 //be fitched multiball times inside the app.js
@@ -105,10 +105,11 @@ class App extends Component {
 
 
   renderContracs(contracts) {
+    console.log("renderContracs" , contracts , this.state.contracts)
     return contracts.map((contract) => {
       return (
         <ShowCompany contract={contract}
-                     updateStatus={this.updateStatus.bind(this)}/>
+                     updateStatus={this.updateStatus.bind(this)} deleteContract={this.deleteTheContract.bind(this)}/>
       )
     })
   }
@@ -125,24 +126,25 @@ class App extends Component {
   //
 
 
-
-  //  deleteTheContract(comp_id,client_id){
-
-  //   const url = API_URL + `/companies/${comp_id}/client/${client_id}`;
-  //   fetch(url, { method: 'DELETE' })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //        this.state.contracts.filter( el => el.id !== contract.id );
-  //     })
-  //       try {
-  //         throw new Error('error in delete contract');
-  //     }
-  //     catch(e) {
-  //         console.log(e);
-
-  //     }
-  // } 
+   deleteTheContract(comp_id,client_id){
+    const url = API_URL + `/companies/${comp_id}/client/${client_id}`;
+      console.log("IN *** ");
+    fetch(url, { method: 'DELETE' })
+      .then(response => response.json())
+      .then(data => {
+         const updatedContracts = this.state.contracts.filter(
+           contract => contract.comp_id == comp_id && contract.client_id !== client_id
+           )
+      
+           this.setState({
+            contracts : updatedContracts,
+             userType : "company"
+           })
+      })
+      .catch((error) => console.log(error))
+  } 
   
+
   updateStatus(contract) {
     console.log(contract);
     const state = {
@@ -160,7 +162,17 @@ class App extends Component {
       .then(response =>  response.json())
 
       .then(data => {
-        console.log(data)
+        console.log(data);
+        this.getCompanyContracts(contract.comp_id);
+        // const updatedContracts = this.state.contracts.map(contract => 
+        //   contract.contract_id === data.contract_id ? data : contract
+        //   )
+        // this.setState({
+        //   contracts : updatedContracts,
+        //    userType : "company"
+        //  },() => {
+        //    console.log(this.state.contracts)
+        //  })
       })
       .catch(error => {
         console.log(error);
