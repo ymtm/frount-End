@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Swal from 'sweetalert2';
 
 class Clients extends Component{
     constructor(props){
@@ -32,7 +33,7 @@ class Clients extends Component{
         event.preventDefault();
         console.log('U R doin somethin!!!')
         this.props.createContracts(this.state);
-        alert("congratulations, you are now one of us!")
+        Swal("congratulations, you are now one of us!")
     }
     
     render(){

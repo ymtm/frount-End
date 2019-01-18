@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import '../node_modules/bootstrap/dist/css/bootstrap.css'
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
+// import Swal from '../node_modules/sweetalert2/dist/sweetalert2.all';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
