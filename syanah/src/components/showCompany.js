@@ -10,6 +10,7 @@ const ShowCompany =  (props) => {
             {props.contract.contract_status}
             {props.contract.contract_issue_date}
         </div>
+        
     )
 }
 
