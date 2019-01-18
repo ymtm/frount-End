@@ -4,6 +4,10 @@ import Companies from './components/Companies';
 import ShowClient from './components/ShowClient';
 import logo from './images/syanaPic.png'
 import ShowCompany from './components/showCompany';
+import { getUser, logout } from "./services/authService";
+import NavBar from "./components/NavBar";
+import AuthForm from "./components/AuthForm";
+import Profile from "./components/Profile";
 
 //for heruok purpose there is this api-url which will
 //be fitched multiball times inside the app.js
@@ -19,11 +23,44 @@ class App extends Component {
       thatCompany: [],
       listOfcomps: true,
       userType: null,
-      contracts: []
+      contracts: [],
+      user: null,
+      form: "signup"
 
     }
   }
+/// the auth methods 
 
+checkForUser() {
+  const user = getUser();
+  if (user) {
+    this.setState({ user });
+  }
+}
+componentDidMount() {
+  this.checkForUser();
+}
+
+changeForm = type => {
+  console.log(type);
+  this.setState({
+    form: type
+  });
+};
+
+login = () => {
+  const user = getUser();
+  this.setState({ user });
+};
+
+logout = () => {
+  logout();
+  this.setState({ user: null });
+};
+
+getProducts = () => {};
+
+///
   componentDidMount() {
     console.log('fetching data');
     const url = API_URL + `/companies`
@@ -139,7 +176,7 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
          const updatedContracts = this.state.contracts.filter(
-           contract => contract.comp_id == comp_id && contract.client_id !== client_id
+           contract => contract.comp_id === comp_id && contract.client_id !== client_id
            )
       
            this.setState({
@@ -221,22 +258,37 @@ class App extends Component {
 
   render() {
     return (
+  <div>
+
       <div className="container">
         <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToClient() }}> Client</button>
         <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToCompany() }}>Companies</button>
-        
-        {this.setHomeButton()}
-
-        
-
+        {/* {this.setHomeButton()} */}
+        <img src="./images/syanaPic" alt=""/>
         {this.state.userType ? this.renderCompanies(this.state.companies) : ''}
         {this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}
         {this.state.userType === 'company' ? this.renderContracs(this.state.contracts) : ''}
       </div>
-      // <button>my sweet alert</button>
 
+      <div> 
+      <NavBar
+        user={this.state.user}
+        changeForm={this.changeForm}
+        logout={this.logout}
+        getProducts={this.getProducts}
+        />
 
+      <div className="container">
+        {this.state.user ? (
+          <Profile user={this.state.user} />
+          ) : (
+            <AuthForm form={this.state.form} onLogin={this.login} />
+            )}
+      </div>
+            </div>
+            </div>
     );
+    
   } 
 }
 
