@@ -132,7 +132,7 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
          const updatedContracts = this.state.contracts.filter(
-           contract => contract.comp_id == comp_id && contract.client_id !== client_id
+           contract => contract.comp_id === comp_id && contract.client_id !== client_id
            )
       
            this.setState({
@@ -183,12 +183,12 @@ class App extends Component {
     })
   }
 
-  setContractStatus(contract) {
-    // fetch update 
-    this.state.contracts.indexOf(contract)
-    // set state 
+  // setContractStatus(contract) {
+  //   // fetch update 
+  //   this.state.contracts.indexOf(contract)
+  //   // set state 
 
-  }
+  // }
   setUserTypeToCompany() {
     this.setState({
       userType: 'company'
@@ -203,22 +203,26 @@ class App extends Component {
    }
 
    setHomeButton(){
-    if (this.state.userType !== null){
-      return <button onClick={() =>{ this.setHomePage()} }>Home  </button>
-    } else {
-      return
-      // <button onClick={() =>{ this.setHomePage()} }>Home  </button>
-    }
+     return this.state.userType !== null ? <button className="btn m-2 btn-outline-dark" onClick={() =>{ this.setHomePage()} }>Home</button> : '';
+    // if (this.state.userType !== null){
+    //   return <button className="btn m-2 btn-outline-dark" onClick={() =>{ this.setHomePage()} }>Home  </button>
+    // } else {
+    //   return
+    //   // <button onClick={() =>{ this.setHomePage()} }>Home  </button>
+    // }
    }
+  
+  
    
 
   render() {
     return (
       <div className="container">
+        {this.setHomeButton()}
+        
         <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToClient() }}> Client</button>
         <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToCompany() }}>Companies</button>
         
-        {this.setHomeButton()}
 
         
 
