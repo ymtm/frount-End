@@ -9,7 +9,6 @@ class Clients extends Component{
             period: null,
             value:'',
             company_id: props.comp_id
-
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,7 +37,7 @@ class Clients extends Component{
     render(){
         return(
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit.bind(this)}>
                 <label>Clinet Name:</label><input type="text" value={this.state.name} name="name" onChange={this.handleChange}/><br/>
                 <label>Building Type:</label> <input type="text" value={this.state.type} name="type" onChange={this.handleChange}/><br/>
                 <label>Contract Period:</label>
@@ -48,9 +47,9 @@ class Clients extends Component{
                         <option value= "12" >12 months</option>
                     </select><br/>
                     <input type="text" value/>
-                    {/* {swal("Hello world!")} */}
-                {/* <button> {swal("Hello world!")}</button> */}
-                <button>submitt </button>
+                <button>submit</button>
+        
+                
                 </form>
                 {/* { <button>{swal("Good job!", "You clicked the button!", "success")}</button>} */}
 

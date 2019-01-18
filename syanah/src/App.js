@@ -13,13 +13,13 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      companies: [],
       // activeComponent: '',
-      thatCompany: [],
-      listOfcomps : true,
       // isSelected: false,
+      companies: [],
+      thatCompany: [],
+      listOfcomps: true,
       userType: null,
-      contracts:[]
+      contracts: []
 
     }
   }
@@ -38,10 +38,9 @@ class App extends Component {
       .catch(error => {
         console.log(error)
       })
-    }
+  }
 
   getCompanyContracts(id) {
-
     this.setState({
       listOfcomps: false,
     })
@@ -59,17 +58,17 @@ class App extends Component {
         console.log(error)
       })
 
-    } 
+  }
 
   getCompany(id) {
-    this.setState({
-      userType: null,
-    })
+    // this.setState({
+    //   userType: null,
+    // })
     console.log('clicked', id);
     const companyByID = this.state.companies.filter((elem) => {
       return elem.comp_id === id;
     });
-    
+
     this.setState({
       thatCompany: companyByID,
     })
@@ -82,33 +81,36 @@ class App extends Component {
   //
   //
   //
-  
+
   renderCompanies(allCompanies) {
     if (this.state.thatCompany.length === 0 && this.state.listOfcomps === true) {
       return allCompanies.map((company) => {
         return (
-
-        <Companies key={company.id}
-                   userType={this.state.userType}
-                   comp={company}
-                   getCompanyContracts={this.getCompanyContracts.bind(this)}
-                   getCompany={this.getCompany.bind(this)}/>
-                )
+          <Companies key={company.id}
+            userType={this.state.userType}
+            comp={company}
+            getCompanyContracts={this.getCompanyContracts.bind(this)}
+            getCompany={this.getCompany.bind(this)} />
+        )
       })
     }
   }
-  
+
 
   renderCompanyByID(comp) {
     console.log('* * * * * ', comp[0]);
     return <ShowClient thatCompany={comp[0]} />
 
   }
+
+
   renderContracs(contracts) {
+    console.log("renderContracs" , contracts , this.state.contracts)
     return contracts.map((contract) => {
       return (
         <ShowCompany contract={contract}
-                     updateStatus={this.updateStatus.bind(this)}/>
+          updateStatus={this.updateStatus.bind(this)} 
+          deleteContract={this.deleteTheContract.bind(this)}/>
       )
     })
   }
@@ -130,30 +132,31 @@ class App extends Component {
   //
 
 
-  //  deleteTheContract(contract){
-  //   const API_URL= '';
-  //   const url = API_URL + `/companies/${comp_id}/client/${client_id}`;
-  //   fetch(url, { method: 'DELETE' })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //        this.state.contract.filter( el => el.id !== contract.id );
-  //     })
-  //       try {
-  //         throw new Error('error in delete contract');
-  //     }
-  //     catch(e) {
-  //         console.log(e);
-
-  //     }
-  // } 
-
+   deleteTheContract(comp_id,client_id){
+    const url = API_URL + `/companies/${comp_id}/client/${client_id}`;
+      console.log("IN *** ");
+    fetch(url, { method: 'DELETE' })
+      .then(response => response.json())
+      .then(data => {
+         const updatedContracts = this.state.contracts.filter(
+           contract => contract.comp_id == comp_id && contract.client_id !== client_id
+           )
+      
+           this.setState({
+            contracts : updatedContracts,
+             userType : "company"
+           })
+      })
+      .catch((error) => console.log(error))
+  } 
   
+
   updateStatus(contract) {
     console.log(contract);
-   const state = {
-     status: 'Active',
-     cont_id: contract.contract_id
-   }
+    const state = {
+      status: 'Active',
+      cont_id: contract.contract_id
+    }
     const url = API_URL + `/companies/contracts/${contract.contract_id}`;
     fetch(url, {
       method: 'PUT',
@@ -162,9 +165,11 @@ class App extends Component {
       },
       body: JSON.stringify(state)
     })
-      .then(response => response.json())
+      .then(response =>  response.json())
+ 
       .then(data => {
-        console.log(data)
+        console.log(data);
+        this.getCompanyContracts(contract.comp_id);
       })
       .catch(error => {
         console.log(error);
@@ -177,67 +182,59 @@ class App extends Component {
   //
   //
 
-  
-  //switch between clients and companies as users
 
+  //switch between clients and companies as users
   setUserTypeToClient() {
     this.setState({
       userType: 'client'
     })
   }
+
   setContractStatus(contract) {
-    // fetch update
+    // fetch update 
     this.state.contracts.indexOf(contract)
-    // set state
- 
+    // set state 
+
   }
   setUserTypeToCompany() {
     this.setState({
       userType: 'company'
     }) 
   }
-setHomePage(){
-  this.setState({
-    userType: null,
-    thatCompany: [],
-    listOfcomps: true
-  }) 
-}
+  setHomePage(){
+    this.setState({
+      userType: null,
+      thatCompany: [],
+      listOfcomps: true
+    })
+   }
 
-setHomeButton(){
-  if (this.state.userType !== null){
-    return <button onClick={() =>{ this.setHomePage()} }>Home  </button> 
-  } else {
-    return 
-    // <button onClick={() =>{ this.setHomePage()} }>Home  </button> 
-  }
-}
-
-  // checkingSelection() {
-  //   // this will check wheather the selection on the landing page is a client or a company,
-  //   //and it going to render different stuff based on that selection
-
-  // }
-
-
+   setHomeButton(){
+    if (this.state.userType !== null){
+      return <button onClick={() =>{ this.setHomePage()} }>Home  </button>
+    } else {
+      return
+      // <button onClick={() =>{ this.setHomePage()} }>Home  </button>
+    }
+   }
+   
 
   render() {
     return (
       <div className="container">
-        <button className="btn btn-sm m-2 btn-danger" onClick={() => { this.setUserTypeToClient() }}> client</button>
-        <button className="btn btn-sm m-2 btn-primary" onClick={() => { this.setUserTypeToCompany() }}>company</button>
+        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToClient() }}> Client</button>
+        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToCompany() }}>Companies</button>
         
         {this.setHomeButton()}
-        {/* //alert with the submittion of the contract the renders back to the homePage  */}
-        <div className="image">
-        <img src={logo} style={{width:'400px' , height:'200px' , alignContent: 'center'}} alt="HEYA"/>
-        </div>
 
-        {this.state.userType ? this.renderCompanies(this.state.companies): ''}
+        
+
+        {this.state.userType ? this.renderCompanies(this.state.companies) : ''}
         {this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}
         {this.state.userType === 'company' ? this.renderContracs(this.state.contracts) : ''}
       </div>
       // <button>my sweet alert</button>
+
 
     );
   } 
