@@ -8,16 +8,15 @@ import ShowCompany from './components/showCompany';
 //be fitched multiball times inside the app.js
 const API_URL = 'http://localhost:3000'
 
-
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      companies: [],
       // activeComponent: '',
+      // isSelected: false,
+      companies: [],
       thatCompany: [],
       listOfcomps: true,
-      // isSelected: false,
       userType: null,
       contracts: []
 
@@ -61,9 +60,9 @@ class App extends Component {
   }
 
   getCompany(id) {
-    this.setState({
-      userType: null,
-    })
+    // this.setState({
+    //   userType: null,
+    // })
     console.log('clicked', id);
     const companyByID = this.state.companies.filter((elem) => {
       return elem.comp_id === id;
@@ -86,7 +85,6 @@ class App extends Component {
     if (this.state.thatCompany.length === 0 && this.state.listOfcomps === true) {
       return allCompanies.map((company) => {
         return (
-
           <Companies key={company.id}
             userType={this.state.userType}
             comp={company}
@@ -109,7 +107,8 @@ class App extends Component {
     return contracts.map((contract) => {
       return (
         <ShowCompany contract={contract}
-                     updateStatus={this.updateStatus.bind(this)} deleteContract={this.deleteTheContract.bind(this)}/>
+          updateStatus={this.updateStatus.bind(this)} 
+          deleteContract={this.deleteTheContract.bind(this)}/>
       )
     })
   }
@@ -160,19 +159,10 @@ class App extends Component {
       body: JSON.stringify(state)
     })
       .then(response =>  response.json())
-
+ 
       .then(data => {
         console.log(data);
         this.getCompanyContracts(contract.comp_id);
-        // const updatedContracts = this.state.contracts.map(contract => 
-        //   contract.contract_id === data.contract_id ? data : contract
-        //   )
-        // this.setState({
-        //   contracts : updatedContracts,
-        //    userType : "company"
-        //  },() => {
-        //    console.log(this.state.contracts)
-        //  })
       })
       .catch(error => {
         console.log(error);
@@ -187,7 +177,6 @@ class App extends Component {
 
 
   //switch between clients and companies as users
-
   setUserTypeToClient() {
     this.setState({
       userType: 'client'
@@ -198,7 +187,6 @@ class App extends Component {
     // fetch update 
     this.state.contracts.indexOf(contract)
     // set state 
-    
 
   }
   setUserTypeToCompany() {
@@ -206,26 +194,39 @@ class App extends Component {
       userType: 'company'
     })
   }
+  setHomePage(){
+    this.setState({
+      userType: null,
+      thatCompany: [],
+      listOfcomps: true
+    })
+   }
 
-
-  // checkingSelection() {
-  //   // this will check wheather the selection on the landing page is a client or a company,
-  //   //and it going to render different stuff based on that selection
-
-  // }
-
-
+   setHomeButton(){
+    if (this.state.userType !== null){
+      return <button onClick={() =>{ this.setHomePage()} }>Home  </button>
+    } else {
+      return
+      // <button onClick={() =>{ this.setHomePage()} }>Home  </button>
+    }
+   }
+   
 
   render() {
     return (
       <div className="container">
-        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToClient() }}> client</button>
-        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToCompany() }}>company</button>
+        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToClient() }}> Client</button>
+        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToCompany() }}>Companies</button>
+        
+        {this.setHomeButton()}
+
+        
 
         {this.state.userType ? this.renderCompanies(this.state.companies) : ''}
         {this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}
         {this.state.userType === 'company' ? this.renderContracs(this.state.contracts) : ''}
       </div>
+
 
 
     );
