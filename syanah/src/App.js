@@ -125,25 +125,26 @@ class App extends Component {
   //
 
 
-   deleteTheContract(comp_id,client_id){
+  deleteTheContract(comp_id,client_id){
     const url = API_URL + `/companies/${comp_id}/client/${client_id}`;
-      console.log("IN *** ");
+    console.log("IN *** ");
     fetch(url, { method: 'DELETE' })
       .then(response => response.json())
       .then(data => {
-         const updatedContracts = this.state.contracts.filter(
-           contract => contract.comp_id === comp_id && contract.client_id !== client_id
-           )
-      
-           this.setState({
+        const updatedContracts = this.state.contracts.filter(
+          contract => contract.comp_id === comp_id && contract.client_id !== client_id
+          )
+          
+          this.setState({
             contracts : updatedContracts,
-             userType : "company"
-           })
-      })
+            userType : "company"
+          })
+        })
       .catch((error) => console.log(error))
-  } 
+    } 
   
 
+  // the company will look the contractById and change the status from pending to active 
   updateStatus(contract) {
     console.log(contract);
     const state = {
@@ -159,7 +160,6 @@ class App extends Component {
       body: JSON.stringify(state)
     })
       .then(response =>  response.json())
- 
       .then(data => {
         console.log(data);
         this.getCompanyContracts(contract.comp_id);
@@ -175,7 +175,6 @@ class App extends Component {
   //
   //
 
-
   //switch between clients and companies as users
   setUserTypeToClient() {
     this.setState({
@@ -183,17 +182,12 @@ class App extends Component {
     })
   }
 
-  // setContractStatus(contract) {
-  //   // fetch update 
-  //   this.state.contracts.indexOf(contract)
-  //   // set state 
-
-  // }
   setUserTypeToCompany() {
     this.setState({
       userType: 'company'
     })
   }
+  
   setHomePage(){
     this.setState({
       userType: null,
@@ -212,16 +206,20 @@ class App extends Component {
     // }
    }
   
-  
+  // make the client, company button show just on the landing page
+  showButtons(){
+    const clientBut = <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToClient() }}>Client</button>;
+    const compBut = <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToCompany() }}>Company</button>;
+    return this.state.userType === null ? [clientBut, compBut] : '';
+      
+  }
    
 
   render() {
     return (
       <div className="container">
         {this.setHomeButton()}
-        
-        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToClient() }}> Client</button>
-        <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToCompany() }}>Companies</button>
+        {this.showButtons()}
         
 
         
