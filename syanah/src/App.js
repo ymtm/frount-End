@@ -208,9 +208,12 @@ class App extends Component {
   
   // make the client, company button show just on the landing page
   showButtons(){
-    const clientBut = <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToClient() }}>Client</button>;
-    const compBut = <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToCompany() }}>Company</button>;
+    const clientBut = <button className="btn m-2 btn-outline-dark btn-lg btn-block" onClick={() => { this.setUserTypeToClient() }}>Client</button>;
+    const compBut = <button className="btn m-2 btn-outline-dark btn-lg btn-block" onClick={() => { this.setUserTypeToCompany() }}>Company</button>;
     return this.state.userType === null ? [clientBut, compBut] : '';
+
+    // if i wanna show one of the button on any page
+    // return this.state.userType === null ? [clientBut, compBut] : ((this.state.listOfcomps === true) ? compBut : '');
       
   }
    
@@ -218,12 +221,9 @@ class App extends Component {
   render() {
     return (
       <div className="container">
+
         {this.setHomeButton()}
         {this.showButtons()}
-        
-
-        
-
         {this.state.userType ? this.renderCompanies(this.state.companies) : ''}
         {this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}
         {this.state.userType === 'company' ? this.renderContracs(this.state.contracts) : ''}
