@@ -26,20 +26,19 @@ class App extends Component {
       contracts: [],
       user: null,
       form: "signup"
-
     }
   }
+// --------------------------------------------------------
 /// the auth methods 
-
 checkForUser() {
   const user = getUser();
   if (user) {
     this.setState({ user });
   }
 }
-componentDidMount() {
-  this.checkForUser();
-}
+// componentDidMount() {
+//   this.checkForUser();
+// }
 
 changeForm = type => {
   console.log(type);
@@ -57,11 +56,10 @@ logout = () => {
   logout();
   this.setState({ user: null });
 };
+// --------------------------------------------------------
 
-getProducts = () => {};
-
-///
   componentDidMount() {
+    this.checkForUser();
     console.log('fetching data');
     const url = API_URL + `/companies`
     fetch(url)
@@ -98,6 +96,7 @@ getProducts = () => {};
   }
 
   getCompany(id) {
+
     // this.setState({
     //   userType: null,
     // })
@@ -163,6 +162,7 @@ getProducts = () => {};
   //   }) 
 
   // }
+
   //  START OF CRUD
   //
   //
@@ -178,7 +178,6 @@ getProducts = () => {};
          const updatedContracts = this.state.contracts.filter(
            contract => contract.comp_id === comp_id && contract.client_id !== client_id
            )
-      
            this.setState({
             contracts : updatedContracts,
              userType : "company"
@@ -219,12 +218,16 @@ getProducts = () => {};
   //
   //
 
-
   //switch between clients and companies as users
   setUserTypeToClient() {
     this.setState({
       userType: 'client'
     })
+  }
+  setUserTypeToCompany() {
+    this.setState({
+      userType: 'company'
+    }) 
   }
 
   setContractStatus(contract) {
@@ -232,11 +235,6 @@ getProducts = () => {};
     this.state.contracts.indexOf(contract)
     // set state 
 
-  }
-  setUserTypeToCompany() {
-    this.setState({
-      userType: 'company'
-    }) 
   }
   setHomePage(){
     this.setState({
@@ -263,7 +261,7 @@ getProducts = () => {};
       <div className="container">
         <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToClient() }}> Client</button>
         <button className="btn m-2 btn-outline-dark" onClick={() => { this.setUserTypeToCompany() }}>Companies</button>
-        {/* {this.setHomeButton()} */}
+        {this.setHomeButton()}
         <img src="./images/syanaPic" alt=""/>
         {this.state.userType ? this.renderCompanies(this.state.companies) : ''}
         {this.state.thatCompany.length !== 0 ? this.renderCompanyByID(this.state.thatCompany) : ''}

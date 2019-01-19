@@ -1,9 +1,9 @@
 import React from "react";
 
-const NavBar = ({ user, changeForm, logout, getProducts }) => {
+const NavBar = ({ user, changeForm, logout, renderCompanies }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="navbar-brand">Navbar</div>
+      <div className="navbar-brand"> <h1>SYANA</h1></div>
       <button
         className="navbar-toggler"
         type="button"
@@ -39,8 +39,8 @@ const NavBar = ({ user, changeForm, logout, getProducts }) => {
               <li className="nav-item active" onClick={() => logout()}>
                 <div className="nav-link">Logout</div>
               </li>
-              <li className="nav-item active" onClick={() => getProducts()}>
-                <div className="nav-link">products</div>
+              <li className="nav-item active" onClick={() => renderCompanies()}>
+                <div className="nav-link">Companies</div>
               </li>
             </React.Fragment>
           )

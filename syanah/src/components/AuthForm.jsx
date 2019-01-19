@@ -16,9 +16,9 @@ class AuthForm extends Component {
   }
 
   handleRequest(user) {
-    let apiUrl = "http://localhost:3001/api";
+    let apiUrl = "http://localhost:3000/auth";
 
-    apiUrl += this.props.form === "signup" ? "/users" : "/auth";
+    apiUrl += this.props.form === "signup" ? "/users" : "/";
     console.log(apiUrl);
 
     fetch(apiUrl, {
@@ -42,6 +42,7 @@ class AuthForm extends Component {
     e.preventDefault();
     this.handleRequest(this.state.data);
   };
+
   handleChange = ({ currentTarget: input }) => {
     const data = { ...this.state.data };
     data[input.name] = input.value;
@@ -49,6 +50,7 @@ class AuthForm extends Component {
   };
 
   renderInput = (name, lable, type = "text") => {
+    //user_type=
     const { data } = this.state;
     // const data = this.state.data
 
@@ -58,6 +60,7 @@ class AuthForm extends Component {
         lable={lable}
         type={type}
         value={data[name]}
+        // user_type={data[user_type]}
         onChange={this.handleChange}
       />
     );
