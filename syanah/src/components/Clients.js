@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Swal from 'sweetalert2';
 
+
 class Clients extends Component{
     constructor(props){
         super(props);
@@ -9,7 +10,9 @@ class Clients extends Component{
             type: '',
             period: null,
             value:'',
-            company_id: props.comp_id
+            company_id: props.comp_id,
+            form: true
+
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,16 +33,23 @@ class Clients extends Component{
 
     //this can submit any changes we have made in the state
     handleSubmit(event){
+
+        this.setState({
+            form : false
+        })
         event.preventDefault();
         console.log('U R doin somethin!!!')
+     
         this.props.createContracts(this.state);
         Swal("congratulations, you are now one of us!")
+    
     }
     
     render(){
+    
         return(
             <div>
-                <form onSubmit={this.handleSubmit.bind(this)}>
+                <form onSubmit={ this.state.form ? this.handleSubmit.bind(this) : ''}>
                 <label>Clinet Name:</label><input type="text" value={this.state.name} name="name" onChange={this.handleChange}/><br/>
                 <label>Building Type:</label> <input type="text" value={this.state.type} name="type" onChange={this.handleChange}/><br/>
                 <label>Contract Period:</label>
@@ -48,7 +58,7 @@ class Clients extends Component{
                         <option value= "6" >6 months</option>
                         <option value= "12" >12 months</option>
                     </select><br/>
-                    <input type="text" value/>
+                    <input type="hidden" value/>
                 <button>submit</button>
         
                 

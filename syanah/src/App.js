@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Companies from './components/Companies';
 import ShowClient from './components/ShowClient';
-import ShowCompany from './components/showCompany';
+import ShowCompany from './components/ShowCompany';
 
 //for heruok purpose there is this api-url which will
 //be fitched multiball times inside the app.js
@@ -175,7 +175,7 @@ class App extends Component {
   //
   //
 
-  //switch between clients and companies as users
+  // switch between clients and companies as users
   setUserTypeToClient() {
     this.setState({
       userType: 'client'
@@ -197,30 +197,21 @@ class App extends Component {
    }
 
    setHomeButton(){
-     return this.state.userType !== null ? <button className="btn m-2 btn-outline-dark" onClick={() =>{ this.setHomePage()} }>Home</button> : '';
-    // if (this.state.userType !== null){
-    //   return <button className="btn m-2 btn-outline-dark" onClick={() =>{ this.setHomePage()} }>Home  </button>
-    // } else {
-    //   return
-    //   // <button onClick={() =>{ this.setHomePage()} }>Home  </button>
-    // }
-   }
-  
-  // make the client, company button show just on the landing page
-  showButtons(){
-    const clientBut = <button className="btn m-2 btn-outline-dark btn-lg btn-block" onClick={() => { this.setUserTypeToClient() }}>Client</button>;
-    const compBut = <button className="btn m-2 btn-outline-dark btn-lg btn-block" onClick={() => { this.setUserTypeToCompany() }}>Company</button>;
-    return this.state.userType === null ? [clientBut, compBut] : '';
-
-    // if i wanna show one of the button on any page
-    // return this.state.userType === null ? [clientBut, compBut] : ((this.state.listOfcomps === true) ? compBut : '');
-      
+    return this.state.userType !== null ? <button className="btn m-2 btn-outline-dark" onClick={() =>{ this.setHomePage()} }>Home</button> : '';
   }
+  
+ // make the client, company button show just on the landing page
+ showButtons(){
+  const clientBut = <button className="btn m-2 btn-outline-dark btn-lg btn-block" onClick={() => { this.setUserTypeToClient() }}>Client</button>;
+  const compBut = <button className="btn m-2 btn-outline-dark btn-lg btn-block" onClick={() => { this.setUserTypeToCompany() }}>Company</button>;
+  return this.state.userType === null ? [clientBut, compBut] : '';
+    
+}
    
 
   render() {
     return (
-      <div className="container">
+      <div className="app">
 
         {this.setHomeButton()}
         {this.showButtons()}
